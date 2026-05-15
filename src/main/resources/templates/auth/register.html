@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Обновлен заголовок вкладки -->
+    <title>Регистрация — Сериалы на ЧД</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" th:href="@{/css/main.css}">
+</head>
+<body class="auth-page">
+<div class="auth-container">
+
+    <a th:href="@{/}" class="logo auth-logo">СЕРИАЛЫ<span>НА ЧД</span></a>
+    <div class="auth-card">
+        <h1>Создать аккаунт</h1>
+
+        <p class="auth-subtitle">Присоединяйтесь к Сериалам на ЧД</p>
+
+        <form th:action="@{/auth/register}" method="post" th:object="${registerDto}" class="auth-form">
+            <div class="form-group">
+                <label>Имя пользователя</label>
+                <input type="text" th:field="*{username}" class="input"
+                       th:classappend="${#fields.hasErrors('username')} ? ' input-error'" placeholder="Введите никнейм">
+                <div class="field-error" th:if="${#fields.hasErrors('username')}" th:errors="*{username}"></div>
+            </div>
+            <div class="form-group">
+                <label>Email</label>
+                <input type="email" th:field="*{email}" class="input"
+                       th:classappend="${#fields.hasErrors('email')} ? ' input-error'" placeholder="email@example.com">
+                <div class="field-error" th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></div>
+            </div>
+            <div class="form-group">
+                <label>Пароль</label>
+                <input type="password" th:field="*{password}" class="input"
+                       th:classappend="${#fields.hasErrors('password')} ? ' input-error'" placeholder="Минимум 6 символов">
+                <div class="field-error" th:if="${#fields.hasErrors('password')}" th:errors="*{password}"></div>
+            </div>
+            <div class="form-group">
+                <label>Подтвердите пароль</label>
+                <input type="password" th:field="*{confirmPassword}" class="input" placeholder="Повторите пароль">
+            </div>
+            <button type="submit" class="btn btn-primary w-full">Зарегистрироваться</button>
+        </form>
+        <p class="auth-footer">Уже есть аккаунт? <a th:href="@{/auth/login}">Войдите</a></p>
+    </div>
+</div>
+</body>
+</html>

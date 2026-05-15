@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Обновлен заголовок вкладки -->
+    <title>Вход — Сериалы на ЧД</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" th:href="@{/css/main.css}">
+</head>
+<body class="auth-page">
+<div class="auth-container">
+    <!-- Обновлен логотип -->
+    <a th:href="@{/}" class="logo auth-logo">СЕРИАЛЫ<span>НА ЧД</span></a>
+    <div class="auth-card">
+        <h1>Добро пожаловать</h1>
+        <p class="auth-subtitle">Войдите в аккаунт на ЧД</p>
+
+        <div class="alert alert-success" th:if="${successMessage}" th:text="${successMessage}"></div>
+        <div class="alert alert-error" th:if="${loginError}" th:text="${loginError}"></div>
+
+        <form th:action="@{/auth/login}" method="post" class="auth-form">
+            <div class="form-group">
+                <label>Имя пользователя</label>
+                <input type="text" name="username" class="input" placeholder="Введите ваш никнейм" required>
+            </div>
+            <div class="form-group">
+                <label>Пароль</label>
+                <input type="password" name="password" class="input" placeholder="••••••••" required>
+            </div>
+            <div class="form-group checkbox-group">
+                <label>
+                    <input type="checkbox" name="remember-me">
+                    Запомнить меня
+                </label>
+            </div>
+            <button type="submit" class="btn btn-primary w-full">Войти</button>
+        </form>
+        <p class="auth-footer">Нет аккаунта? <a th:href="@{/auth/register}">Зарегистрируйтесь</a></p>
+    </div>
+</div>
+</body>
+</html>

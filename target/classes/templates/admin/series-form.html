@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Обновлен заголовок вкладки -->
+    <title>Сериал — Сериалы на ЧД Admin</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" th:href="@{/css/main.css}">
+</head>
+<body>
+<nav class="navbar">
+    <div class="nav-inner">
+        <!-- Обновлен логотип -->
+        <a th:href="@{/}" class="logo">СЕРИАЛЫ<span>НА ЧД</span></a>
+        <div class="nav-links">
+            <a th:href="@{/admin}" class="active admin-link">← Назад в панель</a>
+        </div>
+    </div>
+</nav>
+
+
+<div class="container" style="max-width: 700px; padding-top: 40px;">
+    <!-- Текст заголовка формы (динамический) -->
+    <h1 th:text="${seriesId != null} ? 'Редактировать сериал на ЧД' : 'Добавить сериал на ЧД'">Сериал</h1>
+
+    <form th:action="${seriesId != null} ? @{/admin/series/{id}/edit(id=${seriesId})} : @{/admin/series/new}"
+          method="post" th:object="${seriesDto}" class="admin-form">
+
+        <div class="form-group">
+            <label>Название *</label>
+            <input type="text" th:field="*{title}" class="input" placeholder="Введите название...">
+            <div class="field-error" th:if="${#fields.hasErrors('title')}" th:errors="*{title}"></div>
+        </div>
+
+        <div class="form-row">
+            <div class="form-group">
+                <label>Жанр</label>
+                <input type="text" th:field="*{genre}" class="input" placeholder="Драма, Триллер...">
+            </div>
+            <div class="form-group">
+                <label>Год</label>
+                <input type="number" th:field="*{year}" class="input" placeholder="2026">
+            </div>
+        </div>
+
+        <div class="form-row">
+            <div class="form-group">
+                <label>Страна</label>
+                <input type="text" th:field="*{country}" class="input" placeholder="Россия, США...">
+            </div>
+            <div class="form-group">
+                <label>Оценка IMDb</label>
+                <input type="number" th:field="*{imdbRating}" class="input" step="0.1" min="0" max="10" placeholder="8.5">
+            </div>
+        </div>
+
+        <div class="form-row">
+            <div class="form-group">
+                <label>Статус</label>
+                <select th:field="*{status}" class="input">
+                    <option th:each="s : ${statuses}" th:value="${s}" th:text="${s}">ONGOING</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label>Кол-во серий</label>
+                <input type="number" th:field="*{episodesCount}" class="input" placeholder="12">
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label>URL постера</label>
+            <input type="text" th:field="*{posterUrl}" class="input" placeholder="https://...">
+        </div>
+
+        <div class="form-group">
+            <label>URL трейлера (YouTube или прямая ссылка)</label>
+            <input type="text" th:field="*{trailerUrl}" class="input" placeholder="https://youtube.com/watch?v=...">
+        </div>
+
+        <div class="form-group">
+            <label>URL видео</label>
+            <input type="text" th:field="*{videoUrl}" class="input" placeholder="https://...">
+        </div>
+
+        <div class="form-group">
+            <label>Описание</label>
+            <textarea th:field="*{description}" class="input textarea" rows="5" placeholder="Краткое описание сериала для ЧД..."></textarea>
+        </div>
+
+        <div class="form-actions">
+            <button type="submit" class="btn btn-primary">Сохранить в ЧД</button>
+            <a th:href="@{/admin}" class="btn btn-ghost">Отмена</a>
+        </div>
+    </form>
+</div>
+
+<script th:src="@{/js/main.js}"></script>
+</body>
+</html>

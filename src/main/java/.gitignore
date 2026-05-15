@@ -1,0 +1,10 @@
+# Java
+target/
+*.class
+
+# IDEA
+.idea/
+*.iml
+
+# App
+uploads/
