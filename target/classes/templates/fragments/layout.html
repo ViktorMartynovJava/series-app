@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <!-- Обновлен заголовок: теперь Сериалы на ЧД -->
+
     <title th:text="${pageTitle != null ? pageTitle + ' — Сериалы на ЧД' : 'Сериалы на ЧД'}">Сериалы на ЧД</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
@@ -14,8 +14,8 @@
 
 <nav class="navbar">
     <div class="nav-inner">
-        <!-- Обновлен логотип в навигации -->
-        <a th:href="@{/}" class="logo">СЕРИАЛЫ<span>НА ЧД</span></a>
+
+        <a th:href="@{/}" class="logo">Сериалы на<span>ЧД</span></a>
         <div class="nav-links">
             <a th:href="@{/series}">Каталог</a>
             <a sec:authorize="isAuthenticated()" th:href="@{/profile}">Профиль</a>
@@ -37,13 +37,13 @@
 </nav>
 
 <main th:fragment="content">
-    <!-- Page content goes here -->
+
 </main>
 
 <footer class="footer">
     <div class="footer-inner">
-        <!-- Обновлен логотип и текст в футере -->
-        <span class="logo">СЕРИАЛЫ<span>НА ЧД</span></span>
+
+        <span class="logo">Сериалы на<span>ЧД</span></span>
         <p>© 2026 Сериалы на ЧД. Все права защищены.</p>
     </div>
 </footer>

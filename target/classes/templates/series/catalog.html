@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <!-- Заголовок страницы -->
+
     <title>Каталог — Сериалы на ЧД</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
@@ -13,8 +13,8 @@
 <body>
 <nav class="navbar">
     <div class="nav-inner">
-        <!-- Логотип в шапке -->
-        <a th:href="@{/}" class="logo">СЕРИАЛЫ<span>НА ЧД</span></a>
+
+        <a th:href="@{/}" class="logo">Сериалы на<span>ЧД</span></a>
         <div class="nav-links">
             <a th:href="@{/series}" class="active">Каталог</a>
         </div>
@@ -36,7 +36,7 @@
 
 <div class="page-header">
     <div class="container">
-        <!-- Главный заголовок каталога -->
+
         <h1>Каталог «Сериалы на ЧД»</h1>
     </div>
 </div>
@@ -63,10 +63,10 @@
         </form>
     </aside>
 
-    <!-- Results -->
+
     <div class="catalog-content">
         <div class="results-info">
-            <!-- Текст о количестве найденных элементов -->
+
             <span th:text="${seriesPage.totalElements + ' сериалов в ЧД'}">0 сериалов</span>
         </div>
 
@@ -117,7 +117,7 @@
 <footer class="footer">
     <div class="footer-inner">
         <!-- Логотип в футере -->
-        <span class="logo">СЕРИАЛЫ<span>НА ЧД</span></span>
+        <span class="logo">Сериалы на<span>ЧД</span></span>
         <p>© 2026 Сериалы на ЧД</p>
     </div>
 </footer>
