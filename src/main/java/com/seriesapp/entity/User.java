@@ -46,7 +46,7 @@ public class User implements UserDetails {
             inverseJoinColumns = @JoinColumn(name = "series_id"))
     private Set<Series> favorites = new HashSet<>();
 
-    // UserDetails methods
+
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return List.of(new SimpleGrantedAuthority("ROLE_" + role.name()));

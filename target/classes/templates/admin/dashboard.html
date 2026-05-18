@@ -13,7 +13,7 @@
 <nav class="navbar">
     <div class="nav-inner">
         <!-- Обновлен логотип -->
-        <a th:href="@{/}" class="logo">СЕРИАЛЫ<span>НА ЧД</span></a>
+        <a th:href="@{/}" class="logo">Сериалы на<span>ЧД</span></a>
         <div class="nav-links">
             <a th:href="@{/series}">Каталог</a>
             <a th:href="@{/admin}" class="active admin-link">Админ</a>
@@ -25,6 +25,8 @@
         </div>
     </div>
 </nav>
+
+
 
 <div class="container" style="padding-top: 40px;">
     <div class="admin-header">
@@ -51,7 +53,7 @@
             <tr th:each="series : ${seriesList}">
                 <td th:text="${series.id}">1</td>
                 <td>
-                    <!-- Ссылка на просмотр на самом сайте -->
+
                     <a th:href="@{/series/{id}(id=${series.id})}" th:text="${series.title}">Название</a>
                 </td>
                 <td th:text="${series.genre}">Жанр</td>
@@ -61,7 +63,7 @@
                 <td class="admin-actions">
                     <a th:href="@{/admin/series/{id}/edit(id=${series.id})}" class="btn btn-sm btn-ghost">✏ Ред.</a>
                     <form th:action="@{/admin/series/{id}/delete(id=${series.id})}" method="post" style="display:inline"
-                          onsubmit="return confirm('Удалить сериал из базы ЧД?')">
+                          onsubmit="return confirm('Удалить сериал из базы?')">
                         <button type="submit" class="btn btn-sm btn-danger">✕ Удалить</button>
                     </form>
                 </td>

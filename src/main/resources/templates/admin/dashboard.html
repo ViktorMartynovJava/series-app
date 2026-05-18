@@ -26,6 +26,8 @@
     </div>
 </nav>
 
+
+
 <div class="container" style="padding-top: 40px;">
     <div class="admin-header">
         <h1>Управление контентом ЧД</h1>
@@ -61,7 +63,7 @@
                 <td class="admin-actions">
                     <a th:href="@{/admin/series/{id}/edit(id=${series.id})}" class="btn btn-sm btn-ghost">✏ Ред.</a>
                     <form th:action="@{/admin/series/{id}/delete(id=${series.id})}" method="post" style="display:inline"
-                          onsubmit="return confirm('Удалить сериал из базы ЧД?')">
+                          onsubmit="return confirm('Удалить сериал из базы?')">
                         <button type="submit" class="btn btn-sm btn-danger">✕ Удалить</button>
                     </form>
                 </td>
