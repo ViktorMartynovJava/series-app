@@ -21,7 +21,7 @@
             <div class="form-group">
                 <label>Имя пользователя</label>
                 <input type="text" th:field="*{username}" class="input"
-                       th:classappend="${#fields.hasErrors('username')} ? ' input-error'" placeholder="Введите никнейм">
+                       th:classappend="${#fields.hasErrors('username')} ? ' input-error'" placeholder="Введите имя аккаунта">
                 <div class="field-error" th:if="${#fields.hasErrors('username')}" th:errors="*{username}"></div>
             </div>
             <div class="form-group">
