@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <!-- Обновлен заголовок вкладки -->
+
     <title th:text="${series.title + ' — Сериалы на ЧД'}">Сериалы на ЧД</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
@@ -13,8 +13,8 @@
 <body>
 <nav class="navbar">
     <div class="nav-inner">
-        <!-- Обновлен логотип в навигации -->
-        <a th:href="@{/}" class="logo">Сериалы на<span>ЧД</span></a>
+
+        <a th:href="@{/}" class="logo">Series on <span>Black Day</span></a>
         <div class="nav-links">
             <a th:href="@{/series}">Каталог</a>
         </div>
@@ -34,7 +34,7 @@
     </div>
 </nav>
 
-<!-- Hero with backdrop -->
+
 <div class="detail-hero">
     <div class="detail-bg"
          th:style="${series.posterUrl != null} ? 'background-image: url(' + ${series.posterUrl} + ')' : ''"></div>
@@ -82,9 +82,9 @@
 
 <div class="container detail-body">
 
-    <!-- Video Player -->
+
     <section class="player-section" th:if="${series.videoUrl != null or series.trailerUrl != null}">
-        <h2>Смотреть на ЧД</h2>
+        <h2>Смотреть</h2>
         <div class="player-tabs" th:if="${series.videoUrl != null and series.trailerUrl != null}">
             <button class="player-tab active" onclick="switchPlayer('video')">Серия</button>
             <button class="player-tab" onclick="switchPlayer('trailer')">Трейлер</button>
@@ -114,7 +114,7 @@
 
     <!-- Comments -->
     <section class="comments-section">
-        <h2>Отзывы зрителей ЧД <span class="comments-count" th:text="'(' + ${comments.totalElements} + ')'"></span></h2>
+        <h2>Отзывы зрителей <span class="comments-count" th:text="'(' + ${comments.totalElements} + ')'"></span></h2>
 
         <div class="alert alert-error" th:if="${commentError}" th:text="${commentError}"></div>
 
@@ -167,7 +167,7 @@
                 <p class="comment-content" th:text="${comment.content}">Текст отзыва</p>
             </div>
             <div class="empty-state" th:if="${comments.isEmpty()}">
-                <p>Отзывов в ЧД пока нет. Будьте первым!</p>
+                <p>Отзывов пока нет. Будьте первым!</p>
             </div>
         </div>
 
@@ -187,8 +187,8 @@
 
 <footer class="footer">
     <div class="footer-inner">
-        <span class="logo">Сериалы на<span>ЧД</span></span>
-        <p>© 2026 Сериалы на ЧД</p>
+        <span class="logo">Series on <span>Black Day</span></span>
+        <p>© 2026 Series on Black Day</p>
     </div>
 </footer>
 <script th:src="@{/js/main.js}"></script>

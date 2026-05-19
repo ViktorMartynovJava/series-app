@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>Админ панель — Сериалы на ЧД</title>
+    <title>Админ панель</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" th:href="@{/css/main.css}">
@@ -12,8 +12,8 @@
 <body>
 <nav class="navbar">
     <div class="nav-inner">
-        <!-- Обновлен логотип -->
-        <a th:href="@{/}" class="logo">Сериалы на<span>ЧД</span></a>
+
+        <a th:href="@{/}" class="logo">Series on <span>Black Day</span></a>
         <div class="nav-links">
             <a th:href="@{/series}">Каталог</a>
             <a th:href="@{/admin}" class="active admin-link">Админ</a>
@@ -30,7 +30,7 @@
 
 <div class="container" style="padding-top: 40px;">
     <div class="admin-header">
-        <h1>Управление контентом ЧД</h1>
+        <h1>Управление контентом</h1>
         <a th:href="@{/admin/series/new}" class="btn btn-primary">+ Добавить сериал</a>
     </div>
 

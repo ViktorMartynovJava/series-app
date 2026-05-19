@@ -13,7 +13,7 @@
 <nav class="navbar">
     <div class="nav-inner">
 
-        <a th:href="@{/}" class="logo">Сериалы на <span>ЧД</span></a>
+        <a th:href="@{/}" class="logo">Series on <span>Black Day</span></a>
         <div class="nav-links">
             <a th:href="@{/admin}" class="active admin-link">← Назад в панель</a>
         </div>
@@ -23,7 +23,7 @@
 
 <div class="container" style="max-width: 700px; padding-top: 40px;">
 
-    <h1 th:text="${seriesId != null} ? 'Редактировать сериал на ЧД' : 'Добавить сериал на ЧД'">Сериал</h1>
+    <h1 th:text="${seriesId != null} ? 'Редактировать сериал ' : 'Добавить сериал '">Сериал</h1>
 
     <form th:action="${seriesId != null} ? @{/admin/series/{id}/edit(id=${seriesId})} : @{/admin/series/new}"
           method="post" th:object="${seriesDto}" class="admin-form">

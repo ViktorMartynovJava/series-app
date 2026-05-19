@@ -14,7 +14,7 @@
 <nav class="navbar">
     <div class="nav-inner">
 
-        <a th:href="@{/}" class="logo">Сериалы на <span>ЧД</span></a>
+        <a th:href="@{/}" class="logo">Series on <span>Black Day</span></a>
         <div class="nav-links">
             <a th:href="@{/series}">Каталог</a>
         </div>
@@ -84,7 +84,7 @@
 
 
     <section class="player-section" th:if="${series.videoUrl != null or series.trailerUrl != null}">
-        <h2>Смотреть на ЧД</h2>
+        <h2>Смотреть</h2>
         <div class="player-tabs" th:if="${series.videoUrl != null and series.trailerUrl != null}">
             <button class="player-tab active" onclick="switchPlayer('video')">Серия</button>
             <button class="player-tab" onclick="switchPlayer('trailer')">Трейлер</button>
@@ -187,7 +187,7 @@
 
 <footer class="footer">
     <div class="footer-inner">
-        <span class="logo">Сериалы на <span>ЧД</span></span>
+        <span class="logo">Series on <span>Black Day</span></span>
         <p>© 2026 Series on Black Day</p>
     </div>
 </footer>
