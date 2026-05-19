@@ -65,7 +65,10 @@ h1, h2, h3 {
 }
 h1 { font-size: clamp(2.4rem, 5vw, 4rem); text-shadow: 0 2px 20px rgba(0,0,0,0.8); }
 h2 {
-    font-size: clamp(1.6rem, 3vw, 2.4rem);
+    font-family: 'Raleway', sans-serif;
+    font-size: clamp(1.4rem, 2.5vw, 1.9rem);
+    font-weight: 800;
+    letter-spacing: 0.03em;
     margin-bottom: 28px;
     text-shadow: 0 2px 12px rgba(0,0,0,0.6);
 }
@@ -714,26 +717,34 @@ select.input { cursor: pointer; }
     font-size: 2.4rem;
     font-family: 'Bebas Neue', sans-serif;
     letter-spacing: 0.12em;
-    text-shadow: 0 0 30px rgba(230,57,70,0.5);
+    font-weight: 900;
+    color: var(--text);
+    text-shadow:
+            0 0 20px rgba(230,57,70,0.4),
+            0 0 60px rgba(230,57,70,0.15),
+            0 2px 8px rgba(0,0,0,0.8);
+}
+
+.auth-logo span {
+    color: var(--accent);
+    text-shadow:
+            0 0 20px rgba(230,57,70,0.8),
+            0 0 50px rgba(230,57,70,0.5),
+            0 0 100px rgba(230,57,70,0.2);
 }
 .auth-card {
     background: rgba(13,13,24,0.85);
     border: 1px solid rgba(255,255,255,0.08);
     border-radius: 20px;
-    padding: 44px;
+    padding: clamp(24px, 5vw, 44px);
     backdrop-filter: blur(24px);
     box-shadow: 0 24px 80px rgba(0,0,0,0.7);
 }
-.auth-card h1 { text-align: center; margin-bottom: 8px; }
-.auth-subtitle { text-align: center; color: var(--text-muted); margin-bottom: 32px; font-weight: 600; }
-.auth-form { display: flex; flex-direction: column; gap: 18px; }
-.form-group { display: flex; flex-direction: column; gap: 7px; }
-.form-group label {
-    font-size: 0.72rem;
-    font-weight: 900;
-    color: var(--text-dim);
-    text-transform: uppercase;
-    letter-spacing: 0.1em;
+
+.auth-card h1 {
+    font-size: clamp(1.6rem, 5vw, 2.2rem);
+    margin-bottom: 8px;
+    text-align: center;
 }
 .checkbox-group label { flex-direction: row; align-items: center; gap: 8px; font-size: 0.85rem; text-transform: none; cursor: pointer; font-weight: 600; letter-spacing: 0; }
 .auth-footer { text-align: center; color: var(--text-muted); font-size: 0.875rem; margin-top: 24px; font-weight: 600; }
