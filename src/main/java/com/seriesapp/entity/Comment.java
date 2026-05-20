@@ -18,7 +18,7 @@ public class Comment {
     private String content;
 
     @Column
-    private Integer rating; // 1-10
+    private Integer rating;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id", nullable = false)
