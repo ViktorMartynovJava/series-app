@@ -685,6 +685,17 @@ select.input { cursor: pointer; }
 .comment-content { color: var(--text-muted); font-size: 0.9rem; line-height: 1.7; font-weight: 500; }
 .delete-btn { font-size: 0.72rem; }
 
+.admin-comment-card {
+    border-color: rgba(212, 175, 55, 0.25) !important;
+    background: linear-gradient(135deg, rgba(212, 175, 55, 0.03) 0%, rgba(13, 13, 24, 0.9) 100%) !important;
+    box-shadow: 0 4px 24px rgba(212, 175, 55, 0.05), inset 0 1px 0 rgba(212, 175, 55, 0.05);
+    position: relative;
+}
+
+.admin-comment-card .comment-content {
+    color: #f5eed3;
+}
+
 /* ==================== PAGINATION ==================== */
 .pagination { display: flex; gap: 8px; justify-content: center; flex-wrap: wrap; margin-top: 36px; }
 .page-btn {
