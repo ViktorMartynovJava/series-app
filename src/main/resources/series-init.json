@@ -1,0 +1,14 @@
+[
+  {
+    "title": "Прямиком в ад",
+    "genre": "Драма, биография, history",
+    "year": 2026,
+    "country": "Japan",
+    "imdbRating": 8.5,
+    "episodesCount": 9,
+    "description": "Кто она: мошенница или святая? Биографическая драма о самой скандальной телегадалке Японии",
+    "posterUrl": "/images/seriesfirst.jpg",
+    "status": "COMPLETED",
+    "trailerUrl": "/api/videos/trailer"
+  }
+]

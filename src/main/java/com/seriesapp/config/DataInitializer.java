@@ -1,5 +1,7 @@
 package com.seriesapp.config;
 
+import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.seriesapp.entity.Series;
 import com.seriesapp.entity.User;
 import com.seriesapp.repository.SeriesRepository;
@@ -8,9 +10,11 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.CommandLineRunner;
+import org.springframework.core.io.ClassPathResource;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 
+import java.io.InputStream;
 import java.util.List;
 
 @Component
@@ -21,6 +25,7 @@ public class DataInitializer implements CommandLineRunner {
     private final UserRepository userRepository;
     private final SeriesRepository seriesRepository;
     private final PasswordEncoder passwordEncoder;
+    private final ObjectMapper objectMapper;
 
     @Value("${app.admin.username}")
     private String adminUsername;
@@ -51,26 +56,20 @@ public class DataInitializer implements CommandLineRunner {
 
     private void initSeries() {
         if (seriesRepository.count() == 0) {
-            // Твой список сериалов
-            List<Series> samples = List.of(
-                    Series.builder()
-                            .title("Прямиком в ад")
-                            .genre("Драма, биография, история")
-                            .year(2026)
-                            .country("Japan")
-                            .imdbRating(8.5)
-                            .episodesCount(9)
-                            .description("Кто она: мошенница или святая? Биографическая драма о самой скандальной телегадалке Японии")
-                            .posterUrl("/images/seriesfirst.jpg")
-                            .status(Series.Status.COMPLETED)
-                            .trailerUrl("api/videos/trailer")
-                            .build()
-            );
+            try {
 
-            if (!samples.isEmpty()) {
-                seriesRepository.saveAll(samples);
-                log.info("Add series on DB ", samples.size());
+                InputStream inputStream = new ClassPathResource("series-init.json").getInputStream();
+                List<Series> samples = objectMapper.readValue(inputStream, new TypeReference<List<Series>>() {
+                });
+
+                if (!samples.isEmpty()) {
+                    seriesRepository.saveAll(samples);
+                    log.info("Successfully added {} series from JSON to DB", samples.size());
+                }
+            } catch (Exception e) {
+                log.error("Failed to initialize series data from JSON", e);
             }
         }
     }
 }
+
