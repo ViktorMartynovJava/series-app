@@ -19,38 +19,40 @@ import org.springframework.security.web.SecurityFilterChain;
 @RequiredArgsConstructor
 public class SecurityConfig {
 
-    private final UserDetailsServiceImpl userDetailsService;
+   private final UserDetailsServiceImpl userDetailsService;
 
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http
-            .authorizeHttpRequests(auth -> auth
-                .requestMatchers("/", "/series", "/series/{id}", "/search",
-                        "/auth/**", "/css/**", "/js/**", "/images/**", "/uploads/**").permitAll()
-                .requestMatchers("/admin/**").hasRole("ADMIN")
-                .anyRequest().authenticated()
-            )
-            .formLogin(form -> form
-                .loginPage("/auth/login")
-                .loginProcessingUrl("/auth/login")
-                .defaultSuccessUrl("/", true)
-                .failureUrl("/auth/login?error=true")
-                .usernameParameter("username")
-                .passwordParameter("password")
-                .permitAll()
-            )
-            .logout(logout -> logout
-                .logoutUrl("/auth/logout")
-                .logoutSuccessUrl("/")
-                .permitAll()
-            )
-            .rememberMe(remember -> remember
-                .key("seriesapp-secret-key")
-                .tokenValiditySeconds(7 * 24 * 3600)
-            );
+                .authorizeHttpRequests(auth -> auth
+                        .requestMatchers("/", "/series", "/series/{id}", "/search",
+                                "/auth/**", "/css/**", "/js/**", "/images/**", "/uploads/**","/videos/**"
+                                ,"api/videos/**").permitAll()
+                        .requestMatchers("/admin/**").hasRole("ADMIN")
+                        .anyRequest().authenticated()
+                )
+                .formLogin(form -> form
+                        .loginPage("/auth/login")
+                        .loginProcessingUrl("/auth/login")
+                        .defaultSuccessUrl("/", true)
+                        .failureUrl("/auth/login?error=true")
+                        .usernameParameter("username")
+                        .passwordParameter("password")
+                        .permitAll()
+                )
+                .logout(logout -> logout
+                        .logoutUrl("/auth/logout")
+                        .logoutSuccessUrl("/")
+                        .permitAll()
+                )
+                .rememberMe(remember -> remember
+                        .key("seriesapp-secret-key")
+                        .tokenValiditySeconds(7 * 24 * 3600)
+                );
 
         return http.build();
     }
+
 
     @Bean
     public PasswordEncoder passwordEncoder() {

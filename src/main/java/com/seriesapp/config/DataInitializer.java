@@ -63,7 +63,7 @@ public class DataInitializer implements CommandLineRunner {
                             .description("Кто она: мошенница или святая? Биографическая драма о самой скандальной телегадалке Японии")
                             .posterUrl("/images/seriesfirst.jpg")
                             .status(Series.Status.COMPLETED)
-                            .trailerUrl("https://www.youtube.com/embed/BT1kpa-WKaE")
+                            .trailerUrl("api/videos/trailer")
                             .build()
             );
 

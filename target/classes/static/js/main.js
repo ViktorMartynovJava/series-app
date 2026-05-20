@@ -6,14 +6,35 @@ function switchPlayer(type) {
 
     if (type === 'video') {
         if (videoPlayer) videoPlayer.style.display = 'block';
-        if (trailerPlayer) trailerPlayer.style.display = 'none';
-    } else {
-        if (videoPlayer) videoPlayer.style.display = 'none';
-        if (trailerPlayer) trailerPlayer.style.display = 'block';
+        if (trailerPlayer) {
+            trailerPlayer.style.display = 'none';
+
+            const trailerVideo = trailerPlayer.querySelector('video');
+            if (trailerVideo) trailerVideo.pause();
+        }
+    } else if (type === 'trailer') {
+        if (videoPlayer) {
+            videoPlayer.style.display = 'none';
+
+            const videoElement = videoPlayer.querySelector('video');
+            if (videoElement) videoElement.pause();
+        }
+        if (trailerPlayer) {
+            trailerPlayer.style.display = 'block';
+
+            const trailerVideo = trailerPlayer.querySelector('video');
+            if (trailerVideo) {
+                trailerVideo.load();
+                trailerVideo.play();
+            }
+        }
     }
 
+
     tabs.forEach(tab => tab.classList.remove('active'));
-    event.target.classList.add('active');
+    if (window.event && window.event.target) {
+        window.event.target.classList.add('active');
+    }
 }
 
 // ==================== STAR RATING ====================
