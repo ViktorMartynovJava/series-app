@@ -185,6 +185,31 @@ a:hover { color: var(--accent-hover); }
 .btn-icon:hover { color: var(--accent); background: var(--accent-glow); }
 .w-full { width: 100%; justify-content: center; }
 
+/* Кнопка телеги */
+.footer-inner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.btn-telegram {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 10px 20px;
+    background-color: #229ED9;
+    color: white;
+    border-radius: 8px;
+    text-decoration: none;
+    font-size: 15px;
+    font-weight: 500;
+    transition: background 0.2s;
+}
+
+.btn-telegram:hover {
+    background-color: #1a8bbf;
+}
+
 /* ==================== INPUTS ==================== */
 .input {
     width: 100%;
