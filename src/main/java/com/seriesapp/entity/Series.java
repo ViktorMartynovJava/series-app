@@ -31,6 +31,7 @@ public class Series {
     @Column(name = "video_url")
     private String videoUrl;
 
+    @Column(name = "genre")
     private String genre;
 
     private Integer year;

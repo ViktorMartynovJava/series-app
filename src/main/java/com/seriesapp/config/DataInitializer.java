@@ -57,15 +57,49 @@ public class DataInitializer implements CommandLineRunner {
     private void initSeries() {
         if (seriesRepository.count() == 0) {
             try {
-
                 InputStream inputStream = new ClassPathResource("series-init.json").getInputStream();
-                List<Series> samples = objectMapper.readValue(inputStream, new TypeReference<List<Series>>() {
-                });
 
-                if (!samples.isEmpty()) {
-                    seriesRepository.saveAll(samples);
-                    log.info("Successfully added {} series from JSON to DB", samples.size());
-                }
+
+                List<java.util.Map<String, Object>> rawList = objectMapper.readValue(
+                        inputStream, new TypeReference<List<java.util.Map<String, Object>>>() {
+                        }
+                );
+
+                List<Series> samples = rawList.stream().map(raw -> {
+                    Series series = new Series();
+                    series.setTitle((String) raw.get("title"));
+                    series.setDescription((String) raw.get("description"));
+                    series.setPosterUrl((String) raw.get("posterUrl"));
+                    series.setTrailerUrl((String) raw.get("trailerUrl"));
+                    series.setVideoUrl((String) raw.get("videoUrl"));
+                    series.setCountry((String) raw.get("country"));
+                    series.setYear((Integer) raw.get("year"));
+                    series.setEpisodesCount((Integer) raw.get("episodesCount"));
+
+                    if (raw.get("imdbRating") != null) {
+                        series.setImdbRating(((Number) raw.get("imdbRating")).doubleValue());
+                    }
+
+                    Object genresRaw = raw.get("genres");
+                    if (genresRaw instanceof List<?> genreList) {
+                        String joined = genreList.stream()
+                                .map(Object::toString)
+                                .collect(java.util.stream.Collectors.joining(", "));
+                        series.setGenre(joined);
+                    }
+
+                    if (raw.get("status") != null) {
+                        series.setStatus(Series.Status.valueOf((String) raw.get("status")));
+                    } else {
+                        series.setStatus(Series.Status.ONGOING);
+                    }
+
+                    return series;
+                }).toList();
+
+                seriesRepository.saveAll(samples);
+                log.info("Successfully added {} series from JSON to DB", samples.size());
+
             } catch (Exception e) {
                 log.error("Failed to initialize series data from JSON", e);
             }

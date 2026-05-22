@@ -41,6 +41,14 @@ public class SeriesService {
         return seriesRepository.findAllGenres();
     }
 
+    public List<String> getAllAvailableGenres() {
+        return List.of(
+                "Боевик", "Драма", "Комедия", "Триллер", "Ужасы",
+                "Романтика", "Фантастика", "Фэнтези", "Аниме", "Документальный",
+                "Криминал", "Приключения", "Мистика", "Биография", "История"
+        );
+    }
+
     public List<Series> findTopRated(int limit) {
         return seriesRepository.findTopRated(PageRequest.of(0, limit));
     }
@@ -74,7 +82,11 @@ public class SeriesService {
         series.setPosterUrl(dto.getPosterUrl());
         series.setTrailerUrl(dto.getTrailerUrl());
         series.setVideoUrl(dto.getVideoUrl());
-        series.setGenre(dto.getGenre());
+        if (dto.getGenres() != null && !dto.getGenres().isEmpty()) {
+            series.setGenre(String.join(", ", dto.getGenres()));
+        } else {
+            series.setGenre("");
+        }
         series.setYear(dto.getYear());
         series.setCountry(dto.getCountry());
         series.setImdbRating(dto.getImdbRating());

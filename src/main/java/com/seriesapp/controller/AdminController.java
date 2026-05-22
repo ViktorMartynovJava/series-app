@@ -12,6 +12,8 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import java.util.Arrays;
+
 @Controller
 @RequestMapping("/admin")
 @PreAuthorize("hasRole('ADMIN')")
@@ -30,16 +32,18 @@ public class AdminController {
     public String newSeriesForm(Model model) {
         model.addAttribute("seriesDto", new SeriesDto());
         model.addAttribute("statuses", Series.Status.values());
+        model.addAttribute("availableGenres", seriesService.getAllAvailableGenres());
         return "admin/series-form";
     }
 
     @PostMapping("/series/new")
     public String createSeries(@Valid @ModelAttribute SeriesDto seriesDto,
-                                BindingResult result,
-                                Model model,
-                                RedirectAttributes redirectAttributes) {
+                               BindingResult result,
+                               Model model,
+                               RedirectAttributes redirectAttributes) {
         if (result.hasErrors()) {
             model.addAttribute("statuses", Series.Status.values());
+            model.addAttribute("availableGenres", seriesService.getAllAvailableGenres());
             return "admin/series-form";
         }
         seriesService.save(seriesDto);
@@ -56,7 +60,9 @@ public class AdminController {
         dto.setPosterUrl(series.getPosterUrl());
         dto.setTrailerUrl(series.getTrailerUrl());
         dto.setVideoUrl(series.getVideoUrl());
-        dto.setGenre(series.getGenre());
+        if (series.getGenre() != null && !series.getGenre().isBlank()) {
+            dto.setGenres(Arrays.asList(series.getGenre().split(",\\s*")));
+        }
         dto.setYear(series.getYear());
         dto.setCountry(series.getCountry());
         dto.setImdbRating(series.getImdbRating());
@@ -65,18 +71,20 @@ public class AdminController {
         model.addAttribute("seriesDto", dto);
         model.addAttribute("seriesId", id);
         model.addAttribute("statuses", Series.Status.values());
+        model.addAttribute("availableGenres", seriesService.getAllAvailableGenres());
         return "admin/series-form";
     }
 
     @PostMapping("/series/{id}/edit")
     public String updateSeries(@PathVariable Long id,
-                                @Valid @ModelAttribute SeriesDto seriesDto,
-                                BindingResult result,
-                                Model model,
-                                RedirectAttributes redirectAttributes) {
+                               @Valid @ModelAttribute SeriesDto seriesDto,
+                               BindingResult result,
+                               Model model,
+                               RedirectAttributes redirectAttributes) {
         if (result.hasErrors()) {
             model.addAttribute("statuses", Series.Status.values());
             model.addAttribute("seriesId", id);
+            model.addAttribute("availableGenres", seriesService.getAllAvailableGenres());
             return "admin/series-form";
         }
         seriesService.update(id, seriesDto);

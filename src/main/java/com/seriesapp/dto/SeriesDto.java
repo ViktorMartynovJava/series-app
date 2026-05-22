@@ -4,6 +4,8 @@ import com.seriesapp.entity.Series;
 import jakarta.validation.constraints.*;
 import lombok.Data;
 
+import java.util.List;
+
 @Data
 public class SeriesDto {
 
@@ -14,7 +16,7 @@ public class SeriesDto {
     private String posterUrl;
     private String trailerUrl;
     private String videoUrl;
-    private String genre;
+    private List<String> genres;
 
     @Min(1900) @Max(2100)
     private Integer year;
