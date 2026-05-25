@@ -4,8 +4,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <!-- Обновлен заголовок вкладки -->
-    <title th:text="${series.title + ' — Сериалы на ЧД'}">Сериалы на ЧД</title>
+
+    <title th:text="${series.title + ' — Сериалы на ЧД'}">Series on Black Day</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" th:href="@{/css/main.css}">
@@ -13,8 +13,8 @@
 <body>
 <nav class="navbar">
     <div class="nav-inner">
-        <!-- Обновлен логотип в навигации -->
-        <a th:href="@{/}" class="logo">Сериалы на<span>ЧД</span></a>
+
+        <a th:href="@{/}" class="logo">Series on <span>Black Day</span></a>
         <div class="nav-links">
             <a th:href="@{/series}">Каталог</a>
         </div>
@@ -25,7 +25,7 @@
             </div>
             <div sec:authorize="isAuthenticated()" class="user-menu">
                 <span class="username" sec:authentication="name"></span>
-                <a sec:authorize="hasRole('ADMIN')" th:href="@{/admin}" class="btn btn-ghost admin-link">Админ</a>
+                <a sec:authorize="hasRole('ADMIN')" th:href="@{/admin}" class="btn btn-ghost admin-link">Admin</a>
                 <form th:action="@{/auth/logout}" method="post" style="display:inline">
                     <button type="submit" class="btn btn-ghost">Выйти</button>
                 </form>
@@ -34,7 +34,7 @@
     </div>
 </nav>
 
-<!-- Hero with backdrop -->
+
 <div class="detail-hero">
     <div class="detail-bg"
          th:style="${series.posterUrl != null} ? 'background-image: url(' + ${series.posterUrl} + ')' : ''"></div>
@@ -47,8 +47,8 @@
             <div class="detail-tags">
                 <span class="tag" th:text="${series.genre}" th:if="${series.genre}">Жанр</span>
                 <span class="tag tag-status"
-                      th:text="${series.status.name()}"
-                      th:classappend="${series.status.name() == 'COMPLETED'} ? ' completed' : ' ongoing'">
+                      th:text="${series.status?.name()}"
+                      th:classappend="${series.status?.name() == 'COMPLETED'} ? ' completed' : ' ongoing'">
                 </span>
             </div>
             <h1 th:text="${series.title}">Название сериала</h1>
@@ -82,39 +82,48 @@
 
 <div class="container detail-body">
 
-    <!-- Video Player -->
     <section class="player-section" th:if="${series.videoUrl != null or series.trailerUrl != null}">
-        <h2>Смотреть на ЧД</h2>
+        <h2>Смотреть</h2>
         <div class="player-tabs" th:if="${series.videoUrl != null and series.trailerUrl != null}">
-            <button class="player-tab active" onclick="switchPlayer('video')">Серия</button>
-            <button class="player-tab" onclick="switchPlayer('trailer')">Трейлер</button>
+            <button class="player-tab active" onclick="switchPlayer('video', this)">Серия</button>
+            <button class="player-tab" onclick="switchPlayer('trailer', this)">Трейлер</button>
         </div>
-        <div class="player-wrapper">
-            <div id="video-player" th:if="${series.videoUrl != null}">
+        <div class="player-wrapper" style="position: relative; width: 100%; max-width: 800px; margin: 0 auto; background: #000; border-radius: 8px; overflow: hidden;">
+
+            <div id="video-player" style="width: 100%; aspect-ratio: 16/9;" th:if="${series.videoUrl != null}">
                 <iframe th:if="${series.videoUrl.contains('youtube') or series.videoUrl.contains('youtu.be')}"
-                        th:src="${'https://www.youtube.com/embed/' + #strings.substringAfter(series.videoUrl, 'v=')}"
+                        th:src="${series.videoUrl.contains('v=') ? 'https://www.youtube.com/embed/' + #strings.substringAfter(series.videoUrl, 'v=') : 'https://www.youtube.com/embed/' + #strings.substringAfter(series.videoUrl, 'youtu.be/')}"
                         allowfullscreen frameborder="0" width="100%" height="100%"></iframe>
+
                 <video th:unless="${series.videoUrl.contains('youtube') or series.videoUrl.contains('youtu.be')}"
-                       controls width="100%">
-                    <source th:src="${series.videoUrl}">
+                       th:src="${series.videoUrl}"
+                       controls preload="auto" width="100%" height="100%" style="display: block; background: #000;">
                     Ваш браузер не поддерживает видео.
                 </video>
             </div>
-            <div id="trailer-player" style="display:none" th:if="${series.trailerUrl != null}">
-                <iframe th:if="${series.trailerUrl.contains('youtube') or series.trailerUrl.contains('youtu.be')}"
-                        th:src="${'https://www.youtube.com/embed/' + #strings.substringAfter(series.trailerUrl, 'v=')}"
-                        allowfullscreen frameborder="0" width="100%" height="100%"></iframe>
-                <video th:unless="${series.trailerUrl.contains('youtube') or series.trailerUrl.contains('youtu.be')}"
-                       controls width="100%">
-                    <source th:src="${series.trailerUrl}">
-                </video>
-            </div>
+
+            <<div id="trailer-player" style="display: none; width: 100%; aspect-ratio: 16/9;" th:if="${series.trailerUrl != null}">
+            <iframe th:if="${series.trailerUrl.contains('youtube') or series.trailerUrl.contains('youtu.be')}"
+                    th:src="${series.trailerUrl.contains('v=') ? 'https://www.youtube.com/embed/' + #strings.substringAfter(series.trailerUrl, 'v=') : 'https://www.youtube.com/embed/' + #strings.substringAfter(series.trailerUrl, 'youtu.be/')}"
+                    allowfullscreen frameborder="0" width="100%" height="100%"></iframe>
+
+            <video th:unless="${series.trailerUrl.contains('youtube') or series.trailerUrl.contains('youtu.be')}"
+                   th:src="${series.trailerUrl}"
+                   controls
+                   preload="auto"
+                   width="100%"
+                   height="100%"
+                   style="display: block; background: #000;"
+                   muted
+                   playsinline>
+                Ваш браузер не поддерживает видео.
+            </video>
+        </div>
         </div>
     </section>
 
-    <!-- Comments -->
     <section class="comments-section">
-        <h2>Отзывы зрителей ЧД <span class="comments-count" th:text="'(' + ${comments.totalElements} + ')'"></span></h2>
+        <h2>Отзывы зрителей <span class="comments-count" th:text="'(' + ${comments.totalElements} + ')'"></span></h2>
 
         <div class="alert alert-error" th:if="${commentError}" th:text="${commentError}"></div>
 
@@ -167,7 +176,7 @@
                 <p class="comment-content" th:text="${comment.content}">Текст отзыва</p>
             </div>
             <div class="empty-state" th:if="${comments.isEmpty()}">
-                <p>Отзывов в ЧД пока нет. Будьте первым!</p>
+                <p>Отзывов пока нет. Будьте первым!</p>
             </div>
         </div>
 
@@ -187,8 +196,8 @@
 
 <footer class="footer">
     <div class="footer-inner">
-        <span class="logo">Сериалы на<span>ЧД</span></span>
-        <p>© 2026 Сериалы на ЧД</p>
+        <span class="logo">Series on <span>Black Day</span></span>
+        <p>© 2026 Series on Black Day</p>
     </div>
 </footer>
 <script th:src="@{/js/main.js}"></script>

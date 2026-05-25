@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>Каталог — Сериалы на ЧД</title>
+    <title>Каталог — Series on Black Day</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" th:href="@{/css/main.css}">
@@ -14,7 +14,7 @@
 <nav class="navbar">
     <div class="nav-inner">
 
-        <a th:href="@{/}" class="logo">Сериалы на<span>ЧД</span></a>
+        <a th:href="@{/}" class="logo">Series on <span>Black Day</span></a>
         <div class="nav-links">
             <a th:href="@{/series}" class="active">Каталог</a>
         </div>
@@ -37,12 +37,12 @@
 <div class="page-header">
     <div class="container">
 
-        <h1>Каталог «Сериалы на ЧД»</h1>
+        <h1>Каталог «Series on Black Day»</h1>
     </div>
 </div>
 
 <div class="container catalog-layout">
-    <!-- Filters -->
+
     <aside class="filters">
         <form th:action="@{/series}" method="get">
             <div class="filter-group">
@@ -67,7 +67,7 @@
     <div class="catalog-content">
         <div class="results-info">
 
-            <span th:text="${seriesPage.totalElements + ' сериалов в ЧД'}">0 сериалов</span>
+            <span th:text="${seriesPage.totalElements + ' сериалов в каталоге '}">не найдено...</span>
         </div>
 
         <div class="cards-grid" th:if="${!seriesPage.isEmpty()}">
@@ -92,10 +92,10 @@
         </div>
 
         <div class="empty-state" th:if="${seriesPage.isEmpty()}">
-            <p>В каталоге ЧД пока ничего не нашлось. Попробуйте изменить фильтры.</p>
+            <p>Ни чего не найдено. Попробуйте изменить фильтры.</p>
         </div>
 
-        <!-- Pagination -->
+
         <div class="pagination" th:if="${seriesPage.totalPages > 1}">
             <a th:href="@{/series(search=${search}, genre=${selectedGenre}, page=${seriesPage.number - 1})}"
                th:class="${seriesPage.first} ? 'page-btn disabled' : 'page-btn'"
@@ -116,9 +116,9 @@
 
 <footer class="footer">
     <div class="footer-inner">
-        <!-- Логотип в футере -->
-        <span class="logo">Сериалы на<span>ЧД</span></span>
-        <p>© 2026 Сериалы на ЧД</p>
+
+        <span class="logo">Series on <span>Black Day</span></span>
+        <p>© 2026 Series on Black Day</p>
     </div>
 </footer>
 <script th:src="@{/js/main.js}"></script>

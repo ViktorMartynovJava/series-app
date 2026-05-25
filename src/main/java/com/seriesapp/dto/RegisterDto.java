@@ -7,7 +7,7 @@ import lombok.Data;
 public class RegisterDto {
     @NotBlank(message = "Имя пользователя обязательно")
     @Size(min = 3, max = 50, message = "Длина имени: 3-50 символов")
-    @Pattern(regexp = "^[a-zA-Z0-9_]+$", message = "Только латинские буквы, цифры и _")
+    @Pattern(regexp = "^[a-zA-Z0-9_]+$", message = "Только латинские буквы, цифры и символы")
     private String username;
 
     @NotBlank(message = "Email обязателен")

@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>Регистрация — Сериалы на ЧД</title>
+    <title>Регистрация</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" th:href="@{/css/main.css}">
@@ -12,29 +12,28 @@
 <body class="auth-page">
 <div class="auth-container">
 
-    <a th:href="@{/}" class="logo auth-logo">Сериалы на<span>ЧД</span></a>
+    <a th:href="@{/}" class="logo auth-logo">Series on <span>Black Day</span></a>
     <div class="auth-card">
         <h1>Создать аккаунт</h1>
 
-        <p class="auth-subtitle">Присоединяйтесь к Сериалам на ЧД</p>
 
         <form th:action="@{/auth/register}" method="post" th:object="${registerDto}" class="auth-form">
             <div class="form-group">
                 <label>Имя пользователя</label>
                 <input type="text" th:field="*{username}" class="input"
-                       th:classappend="${#fields.hasErrors('username')} ? ' input-error'" placeholder="Введите никнейм">
+                       th:classappend="${#fields.hasErrors('username')} ? ' input-error'" placeholder="Введите имя аккаунта">
                 <div class="field-error" th:if="${#fields.hasErrors('username')}" th:errors="*{username}"></div>
             </div>
             <div class="form-group">
                 <label>Email</label>
                 <input type="email" th:field="*{email}" class="input"
-                       th:classappend="${#fields.hasErrors('email')} ? ' input-error'" placeholder="email@example.com">
+                       th:classappend="${#fields.hasErrors('email')} ? ' input-error'" placeholder="example@gmail.com">
                 <div class="field-error" th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></div>
             </div>
             <div class="form-group">
                 <label>Пароль</label>
                 <input type="password" th:field="*{password}" class="input"
-                       th:classappend="${#fields.hasErrors('password')} ? ' input-error'" placeholder="Минимум 6 символов">
+                       th:classappend="${#fields.hasErrors('password')} ? ' input-error'" placeholder="не менее 6 символов">
                 <div class="field-error" th:if="${#fields.hasErrors('password')}" th:errors="*{password}"></div>
             </div>
             <div class="form-group">

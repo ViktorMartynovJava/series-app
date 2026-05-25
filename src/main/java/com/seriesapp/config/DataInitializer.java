@@ -51,9 +51,20 @@ public class DataInitializer implements CommandLineRunner {
 
     private void initSeries() {
         if (seriesRepository.count() == 0) {
-            // Твой список сериалов для ЧД
+            // Твой список сериалов
             List<Series> samples = List.of(
-                    // Сюда билд сериалов
+                    Series.builder()
+                            .title("Прямиком в ад")
+                            .genre("Драма, биография, история")
+                            .year(2026)
+                            .country("Japan")
+                            .imdbRating(8.5)
+                            .episodesCount(9)
+                            .description("Кто она: мошенница или святая? Биографическая драма о самой скандальной телегадалке Японии")
+                            .posterUrl("/images/seriesfirst.jpg")
+                            .status(Series.Status.COMPLETED)
+                            .trailerUrl("api/videos/trailer")
+                            .build()
             );
 
             if (!samples.isEmpty()) {
