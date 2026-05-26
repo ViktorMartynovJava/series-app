@@ -128,6 +128,34 @@
             <a th:href="@{/admin}" class="btn btn-ghost">Отмена</a>
         </div>
     </form>
+
+
+    <div th:if="${seriesId != null}" class="admin-form" style="margin-top: 24px; padding-bottom: 40px;">
+        <h3 style="font-family: 'Raleway', sans-serif; font-weight: 800; margin-bottom: 4px;">Мое Личное Мнение🎙</h3>
+        <p style="font-size: 0.82rem; color: var(--text-muted); margin-bottom: 16px;">
+            Загрузи фаил в формате mp3 или WAV и он будет отображаться на странице с сериалом
+        </p>
+
+        <div th:if="${series != null and series.adminAudioUrl != null}" style="margin-bottom: 16px;">
+            <p style="font-size: 0.78rem; color: var(--text-muted); margin-bottom: 8px;">Текущее аудио:</p>
+            <audio controls style="width: 100%; accent-color: var(--accent);">
+                <source th:src="${series.adminAudioUrl}" type="audio/mpeg">
+            </audio>
+            <form th:action="@{/admin/series/{id}/audio/delete(id=${seriesId})}" method="post" style="margin-top: 10px;">
+                <button type="submit" class="btn btn-danger btn-sm">✕ Удалить аудио</button>
+            </form>
+        </div>
+
+        <form th:action="@{/admin/series/{id}/audio(id=${seriesId})}"
+              method="post" enctype="multipart/form-data">
+            <div class="form-group">
+                <label>Фаил не больше 50 мб, ок бро?</label>
+                <input type="file" name="file" accept="audio/*" class="input">
+            </div>
+            <button type="submit" class="btn btn-primary" style="margin-top: 8px;">Загрузить</button>
+        </form>
+    </div>
+
 </div>
 
 <script th:src="@{/js/main.js}"></script>

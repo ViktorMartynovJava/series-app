@@ -12,6 +12,8 @@ public class SeriesDto {
     @NotBlank(message = "Название обязательно")
     private String title;
 
+    private String adminAudioUrl;
+    private String adminAudioTitle;
     private String description;
     private String posterUrl;
     private String trailerUrl;

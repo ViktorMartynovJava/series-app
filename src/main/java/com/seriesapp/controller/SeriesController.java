@@ -37,7 +37,7 @@ public class SeriesController {
                           Model model) {
         Page<Series> seriesPage = seriesService.findAll(search, genre, page, 12);
         model.addAttribute("seriesPage", seriesPage);
-        model.addAttribute("genres", seriesService.findAllGenres());
+        model.addAttribute("genres", seriesService.getAllAvailableGenres());
         model.addAttribute("search", search);
         model.addAttribute("selectedGenre", genre);
         return "series/catalog";

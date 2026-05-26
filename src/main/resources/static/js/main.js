@@ -1,5 +1,5 @@
 // ==================== PLAYER TABS ====================
-function switchPlayer(type) {
+function switchPlayer(type, btn) {
     const videoPlayer = document.getElementById('video-player');
     const trailerPlayer = document.getElementById('trailer-player');
     const tabs = document.querySelectorAll('.player-tab');
@@ -8,33 +8,24 @@ function switchPlayer(type) {
         if (videoPlayer) videoPlayer.style.display = 'block';
         if (trailerPlayer) {
             trailerPlayer.style.display = 'none';
-
             const trailerVideo = trailerPlayer.querySelector('video');
             if (trailerVideo) trailerVideo.pause();
         }
     } else if (type === 'trailer') {
         if (videoPlayer) {
             videoPlayer.style.display = 'none';
-
             const videoElement = videoPlayer.querySelector('video');
             if (videoElement) videoElement.pause();
         }
         if (trailerPlayer) {
             trailerPlayer.style.display = 'block';
-
             const trailerVideo = trailerPlayer.querySelector('video');
-            if (trailerVideo) {
-                trailerVideo.load();
-                trailerVideo.play();
-            }
+            if (trailerVideo) { trailerVideo.load(); trailerVideo.play(); }
         }
     }
 
-
     tabs.forEach(tab => tab.classList.remove('active'));
-    if (window.event && window.event.target) {
-        window.event.target.classList.add('active');
-    }
+    if (btn) btn.classList.add('active');
 }
 
 // ==================== STAR RATING ====================

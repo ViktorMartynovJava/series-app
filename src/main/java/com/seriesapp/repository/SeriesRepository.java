@@ -13,9 +13,9 @@ public interface SeriesRepository extends JpaRepository<Series, Long> {
 
     Page<Series> findByTitleContainingIgnoreCase(String title, Pageable pageable);
 
-    Page<Series> findByGenreIgnoreCase(String genre, Pageable pageable);
+    Page<Series> findByGenreContainingIgnoreCase(String genre, Pageable pageable);
 
-    Page<Series> findByTitleContainingIgnoreCaseAndGenreIgnoreCase(
+    Page<Series> findByTitleContainingIgnoreCaseAndGenreContainingIgnoreCase(
             String title, String genre, Pageable pageable);
 
     @Query("SELECT DISTINCT s.genre FROM Series s WHERE s.genre IS NOT NULL ORDER BY s.genre")
@@ -28,6 +28,6 @@ public interface SeriesRepository extends JpaRepository<Series, Long> {
     List<Series> findLatest(Pageable pageable);
 
     @Query("SELECT s FROM Series s WHERE s.id IN " +
-           "(SELECT f.id FROM User u JOIN u.favorites f WHERE u.id = :userId)")
+            "(SELECT f.id FROM User u JOIN u.favorites f WHERE u.id = :userId)")
     List<Series> findFavoritesByUserId(@Param("userId") Long userId);
 }

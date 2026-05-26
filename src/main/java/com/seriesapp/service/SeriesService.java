@@ -23,11 +23,11 @@ public class SeriesService {
         boolean hasGenre = genre != null && !genre.isBlank();
 
         if (hasSearch && hasGenre) {
-            return seriesRepository.findByTitleContainingIgnoreCaseAndGenreIgnoreCase(search, genre, pageable);
+            return seriesRepository.findByTitleContainingIgnoreCaseAndGenreContainingIgnoreCase(search, genre, pageable);
         } else if (hasSearch) {
             return seriesRepository.findByTitleContainingIgnoreCase(search, pageable);
         } else if (hasGenre) {
-            return seriesRepository.findByGenreIgnoreCase(genre, pageable);
+            return seriesRepository.findByGenreContainingIgnoreCase(genre, pageable);
         }
         return seriesRepository.findAll(pageable);
     }
@@ -43,9 +43,11 @@ public class SeriesService {
 
     public List<String> getAllAvailableGenres() {
         return List.of(
-                "Боевик", "Драма", "Комедия", "Триллер", "Ужасы",
-                "Романтика", "Фантастика", "Фэнтези", "Аниме", "Документальный",
-                "Криминал", "Приключения", "Мистика", "Биография", "История"
+                "Боевик", "Детектив", "Драма", "Комедия", "Триллер",
+                "Ужасы", "Романтика", "Фантастика", "Фэнтези", "Аниме",
+                "Документальный", "Криминал", "Приключения", "Мистика",
+                "Биография", "История", "Трагедия", "Мелодрама", "Вестерн"
+
         );
     }
 
@@ -92,5 +94,13 @@ public class SeriesService {
         series.setImdbRating(dto.getImdbRating());
         series.setStatus(dto.getStatus() != null ? dto.getStatus() : Series.Status.ONGOING);
         series.setEpisodesCount(dto.getEpisodesCount());
+    }
+
+    @Transactional
+    public void updateAudio(Long id, String audioUrl, String audioTitle) {
+        Series series = findById(id);
+        series.setAdminAudioUrl(audioUrl);
+        series.setAdminAudioTitle(audioTitle);
+        seriesRepository.save(series);
     }
 }

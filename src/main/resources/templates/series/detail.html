@@ -87,33 +87,33 @@
         </div>
         <div class="player-wrapper" style="position: relative; width: 100%; max-width: 800px; margin: 0 auto; background: #000; border-radius: 8px; overflow: hidden;">
 
+            <!-- VIDEO PLAYER -->
             <div id="video-player" style="width: 100%; aspect-ratio: 16/9;" th:if="${series.videoUrl != null}">
                 <iframe th:if="${series.videoUrl.contains('youtube') or series.videoUrl.contains('youtu.be')}"
                         th:src="${series.videoUrl.contains('v=') ? 'https://www.youtube.com/embed/' + #strings.substringAfter(series.videoUrl, 'v=') : 'https://www.youtube.com/embed/' + #strings.substringAfter(series.videoUrl, 'youtu.be/')}"
                         allowfullscreen frameborder="0" width="100%" height="100%"></iframe>
 
                 <video th:unless="${series.videoUrl.contains('youtube') or series.videoUrl.contains('youtu.be')}"
-                       th:src="${series.videoUrl}"
-                       controls preload="auto" width="100%" height="100%" style="display: block; background: #000;">
-                    Ваш browser не поддерживает видео.
+                       th:src="@{/api/videos/trailer/{id}(id=${series.id})}"
+                       controls preload="metadata" width="100%" height="100%"
+                       style="display: block; background: #000;">
+                    Ваш браузер не поддерживает видео.
                 </video>
             </div>
 
+            <!-- TRAILER PLAYER -->
             <div id="trailer-player" style="display: none; width: 100%; aspect-ratio: 16/9;" th:if="${series.trailerUrl != null}">
                 <iframe th:if="${series.trailerUrl.contains('youtube') or series.trailerUrl.contains('youtu.be')}"
                         th:src="${series.trailerUrl.contains('v=') ? 'https://www.youtube.com/embed/' + #strings.substringAfter(series.trailerUrl, 'v=') : 'https://www.youtube.com/embed/' + #strings.substringAfter(series.trailerUrl, 'youtu.be/')}"
                         allowfullscreen frameborder="0" width="100%" height="100%"></iframe>
 
                 <video th:unless="${series.trailerUrl.contains('youtube') or series.trailerUrl.contains('youtu.be')}"
-                       th:src="${series.trailerUrl}"
-                       controls
-                       preload="auto"
-                       width="100%"
-                       height="100%"
+                       th:src="@{/api/videos/trailer/{id}(id=${series.id})}"
+                       controls preload="metadata"
+                       width="100%" height="100%"
                        style="display: block; background: #000;"
-                       muted
                        playsinline>
-                    Ваш browser не поддерживает видео.
+                    Ваш браузер не поддерживает видео.
                 </video>
             </div>
         </div>
