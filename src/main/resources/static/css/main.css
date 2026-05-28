@@ -412,10 +412,13 @@ select.input option {
     border: 1px solid rgba(255,255,255,0.05);
     backdrop-filter: blur(8px);
 }
-.card:hover {
-    transform: translateY(-6px);
-    box-shadow: 0 16px 40px rgba(0,0,0,0.6), 0 0 0 1px rgba(255,255,255,0.1);
-    background: rgba(25,25,40,0.85);
+.card:hover:active {
+    transform: scale(.93);
+    filter: brightness(.8);
+    box-shadow: none;
+    /*transform: translateY(-6px);*/
+    /*box-shadow: 0 16px 40px rgba(0,0,0,0.6), 0 0 0 1px rgba(255,255,255,0.1);*/
+    /*background: rgba(25,25,40,0.85);*/
 }
 .card a { text-decoration: none; color: inherit; display: block; }
 .card-poster { position: relative; aspect-ratio: 2/3; overflow: hidden; }
