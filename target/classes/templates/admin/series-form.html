@@ -3,7 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
+    <meta name="_csrf" th:content="${_csrf.token}"/>
+    <meta name="_csrf_header" th:content="${_csrf.headerName}"/>
     <title>Series on Back Day Admin</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
@@ -14,6 +15,10 @@
             flex-wrap: wrap;
             gap: 8px;
             margin-top: 8px;
+        }
+
+        .genre-item {
+            position: relative;
         }
 
         .genre-item input[type="checkbox"] {
@@ -28,12 +33,60 @@
             font-size: 13px;
             transition: all 0.2s;
             user-select: none;
+            display: inline-block;
         }
 
         .genre-item input[type="checkbox"]:checked + label {
             background-color: #e50914;
             color: white;
             border-color: #e50914;
+        }
+
+        /* Кнопка удаления жанра (×) */
+        .genre-delete-btn {
+            display: none;
+            position: absolute;
+            top: -5px;
+            right: -5px;
+            width: 16px;
+            height: 16px;
+            border-radius: 50%;
+            background: #666;
+            color: white;
+            border: none;
+            font-size: 10px;
+            line-height: 16px;
+            text-align: center;
+            cursor: pointer;
+            padding: 0;
+        }
+
+        .genre-item:hover .genre-delete-btn {
+            display: block;
+        }
+
+        /* Поле добавления нового жанра */
+        .genre-add-row {
+            display: flex;
+            gap: 8px;
+            margin-top: 12px;
+            align-items: center;
+        }
+
+        .genre-add-row input {
+            flex: 1;
+            max-width: 200px;
+        }
+
+        .genre-add-row button {
+            white-space: nowrap;
+        }
+
+        .genre-error {
+            font-size: 12px;
+            color: #e50914;
+            margin-top: 4px;
+            display: none;
         }
     </style>
 </head>
@@ -60,19 +113,45 @@
             <div class="field-error" th:if="${#fields.hasErrors('title')}" th:errors="*{title}"></div>
         </div>
 
+        <!-- ─── Жанры ─────────────────────────────────────────────────────── -->
         <div class="form-group">
             <label>Жанры</label>
-            <div class="genre-grid">
-                <div th:each="genre : ${availableGenres}" class="genre-item">
+
+            <!-- Список жанров из БД в виде чекбоксов -->
+            <div class="genre-grid" id="genreGrid">
+                <div th:each="genre : ${availableGenres}"
+                     class="genre-item"
+                     th:data-id="${genre.id}"
+                     th:id="'genre-item-' + ${genre.id}">
+
                     <input type="checkbox"
-                           th:id="'genre_' + ${genre}"
+                           th:id="'genre_' + ${genre.id}"
                            name="genres"
-                           th:value="${genre}"
-                           th:checked="${seriesDto.genres != null and seriesDto.genres.contains(genre)}"/>
-                    <label th:for="'genre_' + ${genre}" th:text="${genre}"></label>
+                           th:value="${genre.name}"
+                           th:checked="${seriesDto.genres != null and seriesDto.genres.contains(genre.name)}"/>
+                    <label th:for="'genre_' + ${genre.id}" th:text="${genre.name}"></label>
+
+                    <!-- Кнопка удаления жанра из БД -->
+                    <button type="button"
+                            class="genre-delete-btn"
+                            th:data-id="${genre.id}"
+                            th:title="'Удалить ' + ${genre.name}"
+                            onclick="deleteGenre(this)">×</button>
                 </div>
             </div>
+
+            <!-- Добавить новый жанр -->
+            <div class="genre-add-row">
+                <input type="text"
+                       id="newGenreInput"
+                       class="input"
+                       placeholder="Новый жанр..."
+                       maxlength="50">
+                <button type="button" class="btn btn-ghost" onclick="addGenre()">+ Добавить</button>
+            </div>
+            <div class="genre-error" id="genreError"></div>
         </div>
+        <!-- ─────────────────────────────────────────────────────────────────── -->
 
         <div class="form-row">
             <div class="form-group">
@@ -129,7 +208,7 @@
         </div>
     </form>
 
-
+    <!-- Аудио блок (только при редактировании) -->
     <div th:if="${seriesId != null}" class="admin-form" style="margin-top: 24px; padding-bottom: 40px;">
         <h3 style="font-family: 'Raleway', sans-serif; font-weight: 800; margin-bottom: 4px;">Мое Личное Мнение🎙</h3>
         <p style="font-size: 0.82rem; color: var(--text-muted); margin-bottom: 16px;">
@@ -159,5 +238,109 @@
 </div>
 
 <script th:src="@{/js/main.js}"></script>
+<script>
+    // ─── Добавить жанр ────────────────────────────────────────────────────────
+    async function addGenre() {
+        const input = document.getElementById('newGenreInput');
+        const errorEl = document.getElementById('genreError');
+        const name = input.value.trim();
+
+        errorEl.style.display = 'none';
+
+        if (!name) {
+            showGenreError('Введите название жанра');
+            return;
+        }
+
+        try {
+            const res = await fetch('/admin/genres', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ name })
+            });
+
+            const data = await res.json();
+
+            if (!res.ok) {
+                showGenreError(data.error || 'Ошибка при добавлении');
+                return;
+            }
+
+            // Добавляем чекбокс в сетку и сразу отмечаем
+            appendGenreItem(data.id, data.name, true);
+            input.value = '';
+
+        } catch (e) {
+            showGenreError('Ошибка соединения с сервером');
+        }
+    }
+
+    // ─── Удалить жанр ────────────────────────────────────────────────────────
+    async function deleteGenre(btn) {
+        const id = btn.dataset.id;
+        if (!confirm('Удалить этот жанр из базы данных?')) return;
+
+        try {
+            const res = await fetch('/admin/genres/' + id, { method: 'DELETE' });
+
+            if (res.ok) {
+                document.getElementById('genre-item-' + id).remove();
+            } else {
+                const data = await res.json();
+                alert(data.error || 'Не удалось удалить жанр');
+            }
+        } catch (e) {
+            alert('Ошибка соединения с сервером');
+        }
+    }
+
+    // ─── Вспомогательные ─────────────────────────────────────────────────────
+    function appendGenreItem(id, name, checked) {
+        const grid = document.getElementById('genreGrid');
+
+        const wrapper = document.createElement('div');
+        wrapper.className = 'genre-item';
+        wrapper.dataset.id = id;
+        wrapper.id = 'genre-item-' + id;
+
+        const checkbox = document.createElement('input');
+        checkbox.type = 'checkbox';
+        checkbox.id = 'genre_' + id;
+        checkbox.name = 'genres';
+        checkbox.value = name;
+        checkbox.checked = checked;
+
+        const label = document.createElement('label');
+        label.htmlFor = 'genre_' + id;
+        label.textContent = name;
+
+        const delBtn = document.createElement('button');
+        delBtn.type = 'button';
+        delBtn.className = 'genre-delete-btn';
+        delBtn.dataset.id = id;
+        delBtn.title = 'Удалить ' + name;
+        delBtn.textContent = '×';
+        delBtn.onclick = function() { deleteGenre(this); };
+
+        wrapper.appendChild(checkbox);
+        wrapper.appendChild(label);
+        wrapper.appendChild(delBtn);
+        grid.appendChild(wrapper);
+    }
+
+    function showGenreError(msg) {
+        const el = document.getElementById('genreError');
+        el.textContent = msg;
+        el.style.display = 'block';
+    }
+
+    // Enter в поле нового жанра → добавить
+    document.getElementById('newGenreInput').addEventListener('keydown', function(e) {
+        if (e.key === 'Enter') {
+            e.preventDefault();
+            addGenre();
+        }
+    });
+</script>
 </body>
 </html>

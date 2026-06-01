@@ -19,15 +19,21 @@ import org.springframework.security.web.SecurityFilterChain;
 @RequiredArgsConstructor
 public class SecurityConfig {
 
-   private final UserDetailsServiceImpl userDetailsService;
+    private final UserDetailsServiceImpl userDetailsService;
 
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http
+
+                .csrf(csrf -> csrf
+                        .ignoringRequestMatchers("/admin/genres", "/admin/genres/**")
+                )
                 .authorizeHttpRequests(auth -> auth
-                        .requestMatchers("/", "/series", "/series/{id}", "/search",
-                                "/auth/**", "/css/**", "/js/**", "/images/**", "/uploads/**","/videos/**"
-                                ,"api/videos/**","/monitor/**").permitAll()
+                        .requestMatchers(
+                                "/", "/series", "/series/{id}", "/search",
+                                "/auth/**", "/css/**", "/js/**", "/images/**",
+                                "/uploads/**", "/videos/**", "api/videos/**", "/monitor/**"
+                        ).permitAll()
                         .requestMatchers("/admin/**").hasRole("ADMIN")
                         .anyRequest().authenticated()
                 )
@@ -52,7 +58,6 @@ public class SecurityConfig {
 
         return http.build();
     }
-
 
     @Bean
     public PasswordEncoder passwordEncoder() {
