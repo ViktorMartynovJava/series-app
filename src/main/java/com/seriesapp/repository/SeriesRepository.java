@@ -21,7 +21,7 @@ public interface SeriesRepository extends JpaRepository<Series, Long> {
     @Query("SELECT DISTINCT s.genre FROM Series s WHERE s.genre IS NOT NULL ORDER BY s.genre")
     List<String> findAllGenres();
 
-    @Query("SELECT s FROM Series s LEFT JOIN s.comments c GROUP BY s ORDER BY AVG(COALESCE(c.rating, 0)) DESC")
+    @Query("SELECT s FROM Series s ORDER BY s.imdbRating DESC NULLS LAST")
     List<Series> findTopRated(Pageable pageable);
 
     @Query("SELECT s FROM Series s ORDER BY s.createdAt DESC")

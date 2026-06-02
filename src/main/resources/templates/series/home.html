@@ -31,7 +31,6 @@
         </div>
     </div>
 </nav>
-
 <section class="hero">
     <div class="hero-bg"></div>
     <div class="hero-content">
@@ -48,7 +47,11 @@
             <a th:href="@{/series}" class="link-all">Все сериалы →</a>
         </div>
         <div class="cards-grid">
-            <div th:each="series : ${topRated}" class="card">
+            <div th:each="series, iterStat : ${topRated}"
+                 class="card"
+                 th:classappend="${iterStat.index == 0 ? 'card-top-1' :
+                                  (iterStat.index == 1 ? 'card-top-2' :
+                                  (iterStat.index == 2 ? 'card-top-3' : ''))}">
                 <a th:href="@{/series/{id}(id=${series.id})}">
                     <div class="card-poster">
                         <img th:src="${series.posterUrl != null ? series.posterUrl : '/images/placeholder.jpg'}"
@@ -77,8 +80,13 @@
             <a th:href="@{/series}" class="link-all">Все сериалы →</a>
         </div>
         <div class="cards-grid">
-            <div th:each="series : ${latest}" class="card">
+            <div th:each="series, iterStat : ${latest}"
+                 th:class="${iterStat.first} ? 'card card-newest' : 'card'">
                 <a th:href="@{/series/{id}(id=${series.id})}">
+
+                    <!-- Метка НОВИНКА для первого -->
+                    <div th:if="${iterStat.first}" class="card-newest-label">НОВИНКА</div>
+
                     <div class="card-poster">
                         <img th:src="${series.posterUrl != null ? series.posterUrl : '/images/placeholder.jpg'}"
                              th:alt="${series.title}" loading="lazy">
