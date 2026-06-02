@@ -16,6 +16,12 @@ public class Series {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Column(name = "admin_audio_url")
+    private String adminAudioUrl;
+
+    @Column(name = "admin_audio_title")
+    private String adminAudioTitle;
+
     @Column(nullable = false)
     private String title;
 
@@ -31,6 +37,7 @@ public class Series {
     @Column(name = "video_url")
     private String videoUrl;
 
+    @Column(name = "genre")
     private String genre;
 
     private Integer year;

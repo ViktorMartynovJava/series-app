@@ -17,8 +17,12 @@ public class CommentService {
     private final CommentRepository commentRepository;
 
     public Page<Comment> findBySeries(Long seriesId, int page) {
+        Sort pinnedAdminComment = Sort.by(
+                Sort.Order.desc("user.role"),
+                Sort.Order.desc("createdAt")
+        );
         return commentRepository.findBySeriesId(seriesId,
-                PageRequest.of(page, 10, Sort.by("createdAt").descending()));
+                PageRequest.of(page, 10, pinnedAdminComment));
     }
 
     @Transactional
