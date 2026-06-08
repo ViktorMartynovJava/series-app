@@ -1,6 +1,6 @@
 package com.seriesapp.service;
 
-import org.junit.jupiter.api.BeforeEach;
+
 import org.junit.jupiter.api.Test;
 import com.seriesapp.repository.UserRepository;
 import com.seriesapp.entity.User;
