@@ -1,9 +1,13 @@
 package com.seriesapp.dto;
 
 import jakarta.validation.constraints.*;
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Data
+@AllArgsConstructor
+@NoArgsConstructor
 public class RegisterDto {
     @NotBlank(message = "Имя пользователя обязательно")
     @Size(min = 3, max = 50, message = "Длина имени: 3-50 символов")

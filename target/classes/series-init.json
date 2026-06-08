@@ -1,0 +1,26 @@
+[
+  {
+    "title": "Прямиком в ад",
+    "genre": ["Драма","биография","история"],
+    "year": 2026,
+    "country": "Japan",
+    "imdbRating": 8.5,
+    "episodesCount": 9,
+    "description": "Кто она: мошенница или святая? Биографическая драма о самой скандальной телегадалке Японии",
+    "posterUrl": "/images/seriesfirst.jpg",
+    "status": "COMPLETED",
+    "trailerUrl": "/api/videos/trailer"
+  },
+  {
+    "title": "Его и её",
+    "genre": ["Драма","Триллер","Детектив","Криминал"],
+    "year": 2026,
+    "country": "USA",
+    "imdbRating": 7.2,
+    "episodesCount": 6,
+    "description": "Разобщённые супруги — журналистка и детектив — расследуют убийство.",
+    "posterUrl": "/images/hishers.jpg",
+    "status": "COMPLETED",
+    "trailerUrl": "/api/videos/trailer"
+  }
+]
