@@ -1,16 +1,16 @@
-# 🎬 SeriesOnCHD — Сайт рекомендаций сериалов
+# 🎬 SeriesOnBlackDay — Сайт рекомендаций сериалов
 
 Spring Boot приложение с каталогом сериалов, видеоплеером и комментариями.
 
 ## Стек технологий
 
-| Слой | Технология |
-|------|-----------|
-| Backend | Spring Boot 3.2, Spring MVC |
-| Security | Spring Security 6 (form-login, BCrypt) |
-| Database | PostgreSQL + Spring Data JPA |
-| Frontend | Thymeleaf + Vanilla JS |
-| Build | Maven |
+| Слой     | Технология                                                              |
+|----------|-------------------------------------------------------------------------|
+| Backend  | Spring Boot 3.2, Spring MVC, Grafana + Prometheus, Docker, CI CD GitLab | 
+| Security | Spring Security 6 (form-login, BCrypt)                                  |
+| Database | PostgreSQL + Spring Data JPA                                            |
+| Frontend | Thymeleaf + Vanilla JS                                                  |
+| Build    | Maven                                                                   |
 
 ## Структура проекта
 
