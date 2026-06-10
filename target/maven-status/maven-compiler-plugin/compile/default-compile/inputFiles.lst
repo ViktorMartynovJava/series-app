@@ -2,10 +2,12 @@ C:\Все проекты спринг\seriesapp\src\main\java\com\seriesapp\dto\
 C:\Все проекты спринг\seriesapp\src\main\java\com\seriesapp\service\SeriesService.java
 C:\Все проекты спринг\seriesapp\src\main\java\com\seriesapp\dto\RegisterDto.java
 C:\Все проекты спринг\seriesapp\src\main\java\com\seriesapp\service\CommentService.java
+C:\Все проекты спринг\seriesapp\src\main\java\com\seriesapp\entity\Genre.java
 C:\Все проекты спринг\seriesapp\src\main\java\com\seriesapp\config\SecurityConfig.java
 C:\Все проекты спринг\seriesapp\src\main\java\com\seriesapp\entity\User.java
 C:\Все проекты спринг\seriesapp\src\main\java\com\seriesapp\repository\SeriesRepository.java
 C:\Все проекты спринг\seriesapp\src\main\java\com\seriesapp\SeriesAppApplication.java
+C:\Все проекты спринг\seriesapp\src\main\java\com\seriesapp\controller\AdminAudioController.java
 C:\Все проекты спринг\seriesapp\src\main\java\com\seriesapp\entity\Comment.java
 C:\Все проекты спринг\seriesapp\src\main\java\com\seriesapp\config\DataInitializer.java
 C:\Все проекты спринг\seriesapp\src\main\java\com\seriesapp\repository\CommentRepository.java
@@ -13,8 +15,10 @@ C:\Все проекты спринг\seriesapp\src\main\java\com\seriesapp\cont
 C:\Все проекты спринг\seriesapp\src\main\java\com\seriesapp\repository\UserRepository.java
 C:\Все проекты спринг\seriesapp\src\main\java\com\seriesapp\entity\Series.java
 C:\Все проекты спринг\seriesapp\src\main\java\com\seriesapp\controller\AdminController.java
+C:\Все проекты спринг\seriesapp\src\main\java\com\seriesapp\repository\GenreRepository.java
 C:\Все проекты спринг\seriesapp\src\main\java\com\seriesapp\dto\CommentDto.java
 C:\Все проекты спринг\seriesapp\src\main\java\com\seriesapp\service\UserDetailsServiceImpl.java
 C:\Все проекты спринг\seriesapp\src\main\java\com\seriesapp\controller\SeriesController.java
+C:\Все проекты спринг\seriesapp\src\main\java\com\seriesapp\config\WebConfig.java
 C:\Все проекты спринг\seriesapp\src\main\java\com\seriesapp\controller\VideoController.java
 C:\Все проекты спринг\seriesapp\src\main\java\com\seriesapp\service\UserService.java
