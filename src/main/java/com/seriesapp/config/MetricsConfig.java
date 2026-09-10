@@ -1,8 +1,8 @@
 package com.seriesapp.config;
 
 import io.micrometer.core.instrument.MeterRegistry;
-import org.springframework.boot.actuate.autoconfigure.metrics.MeterRegistryCustomizer;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -10,8 +10,9 @@ import org.springframework.context.annotation.Configuration;
 public class MetricsConfig {
 
     @Bean
-    MeterRegistryCustomizer<MeterRegistry> metricsCommonTags(
+    public CommandLineRunner configureCommonTags(
+            MeterRegistry registry,
             @Value("${spring.application.name:seriesapp}") String applicationName) {
-        return registry -> registry.config().commonTags("application", applicationName);
+        return args -> registry.config().commonTags("application", applicationName);
     }
 }

@@ -8,3 +8,12 @@ target/
 
 # App
 uploads/
+
+application-local.properties
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
